@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Open+Sans&display=swap" rel="stylesheet"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Ramabhadra&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <div class="topnav">
+          <a href="index.html" class="active" style="font-size: 13px">Tønder <br> Festival</a>
+            <!-- Navigation links (hidden by default) -->
+            <div id="myLinks">
+              <a href="report.html">Indrapportering</a>
+              <a href="tf.html">Sager</a>
+              <a href="Canvas.html">Kort</a>
+              <a href="index.html">Forside</a>
+            </div>
+            <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+            <a href="javascript:void(0);" class="icon" onclick="toggleNav()">
+              <i class="fa fa-bars"></i>
+            </a>
+          </div>
+          <div id="formContainer">
+              <h1>
+                  Login
+              </h1>
+          <p id="infoPassword">kan du ikke huske dit login? <br>
+              Henvend dig venligst til Gabe Newell.
+          </p>
+          <form id="loginForm" action="">
+            <label for="brugernavn">Brugernavn</label>
+            <input type="text" name="brugernavn" id="brugernavn" required>
+
+            <label for="password">Adgangskode</label>
+            <input type="password" name="password" id="password" required>
+
+            <a id="loginA" href="tf.html"><button id="submitBtn" type="button">Login</button></a>
+          </form>
+        </div>
+    </main>
+    <div class="displayNoneDiv">
+      <h1 class="wrongFormath1">
+          sidens indhold kan kun vises på mobil!
+      </h1>
+      <p class="wrongFormatP ">
+          du kan se sidens indhold ved at gå til console og vælge mobil.
+      </p>
+    </div>
+
+          <script>
+                function toggleNav() {
+                    var x = document.getElementById("myLinks");
+                    if (x.style.display === "block") {
+                    x.style.display = "none";
+                    } else {
+                    x.style.display = "block";
+                        }
+                }
+          </script>
+</body>
+</html>

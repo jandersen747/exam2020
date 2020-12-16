@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Open+Sans&display=swap" rel="stylesheet"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Ramabhadra&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <div class="topnav">
+          <a href="index.html" class="active" style="font-size: 13px">Tønder <br> Festival</a>
+            <!-- Navigation links (hidden by default) -->
+            <div id="myLinks">
+              <a href="report.html">Indrapportering</a>
+              <a href="tf.html">Sager</a>
+              <a href="Canvas.html">Kort</a>
+              <a href="index.html">Forside</a>
+            </div>
+            <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+            <a href="javascript:void(0);" class="icon" onclick="toggleNav()">
+              <i class="fa fa-bars"></i>
+            </a>
+          </div>
+          <div id="formContainer">
+              <h1>
+                  Login
+              </h1>
+          <p id="infoPassword">*hvis du ikke har et login, eller ikke kan huske det,
+              skal du henvende dig til pladskonteret <br> eller ringe på 66666666
+          </p>
+        </div>
+       <!--<form name='loginForm' action='receiveAndStore3.php' method='post'> -->
+            <form name='loginForm'>
+                        <label for='Brugernavn'>Brugernavn</label>
+                        <input id='brugernavn' name='brugernavn' type='text' required>
+
+                        <label for='funktion'>Adgangskode</label>
+                        <input id='funktion' name='funktion' type='password' required>
+            </form>
+            <a id="loginBtn" href="report.html" style="text-decoration: none;"><button id='butt'>Login</button></a>
+
+    </main>
+    <div class="displayNoneDiv">
+      <h1 class="wrongFormath1">
+          sidens indhold kan kun vises på mobil!
+      </h1>
+      <p class="wrongFormatP ">
+          du kan se sidens indhold ved at gå til console og vælge mobil.
+      </p>
+    </div>
+
+          <script>
+                function toggleNav() {
+                    var x = document.getElementById("myLinks");
+                    if (x.style.display === "block") {
+                    x.style.display = "none";
+                    } else {
+                    x.style.display = "block";
+                        }
+                }
+          </script>
+</body>
+</html>

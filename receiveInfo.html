@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Open+Sans&display=swap" rel="stylesheet"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Ramabhadra&display=swap" rel="stylesheet">
+    <meta http-equiv="Refresh" content="5">
+</head>
+<body>
+    <script>
+        let oReq = new XMLHttpRequest();
+                oReq.addEventListener("load", function () {
+                    incidents = [];
+                    if (this.responseText.length > 0)
+                        incidents = JSON.parse(this.responseText); // get and objectify
+                        for (var i = 0; i < incidents.length; i++) {
+                            var mainContainer = document.getElementById("myData2");
+                            var div = document.createElement("div");
+                            div.innerHTML = 
+                            '<p>' + incidents[i].fagpersonP + '</p>' +
+                            '<p>' + 'hjælp afsendt kl: ' + incidents[i].currentTime + ', ' + incidents[i].currentDate + '</p>' +
+                            '<button id="fjern" onclick="setFunc()">Marker som set</button>';
+
+                            mainContainer.appendChild(div);
+
+                        }  
+
+
+                });
+                oReq.open("GET", "./getIncidents2.php");
+                oReq.send();
+
+                function setFunc() {
+                console.log(incidents);
+                incidents.splice(0, 1); 
+
+                ('bla').value = JSON.stringify(incidents);   // stringify
+                    document.forms['form21'].submit();          // send
+                };
+
+                function toggleNav() {
+                    var x = document.getElementById("myLinks");
+                    if (x.style.display === "block") {
+                    x.style.display = "none";
+                    } else {
+                    x.style.display = "block";
+                        }
+                }
+    </script>
+    <main>
+        <div class="topnav">
+            <a href="index.html" class="active" style="font-size: 13px">Tønder <br> Festival</a>
+            <!-- Navigation links (hidden by default) -->
+            <div id="myLinks">
+              <a href="report.html">Indrapportering</a>
+              <a href="tf.html">Sager</a>
+              <a href="Canvas.html">Kort</a>
+              <a href="index.html">Forside</a>
+            </div>
+            <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+            <a href="javascript:void(0);" class="icon" onclick="toggleNav()">
+              <i class="fa fa-bars"></i>
+            </a>
+          </div>
+        <div id="myData2">  
+        </div>
+        <div id="myData3">
+            <p>Når hjælpen er på vej, vil du kunne se det på denne side!</p>
+            <p>Hvis hjælpen er længere tid end X-minutter om at ankomme, så ring på <b>24242424</b> </p>
+            <a id="aFjern" href="index.html"><button id="startside">Gå til startside</button></a>
+        </div>
+        <form action="receiveAndStore2.php" method='post' name='form21'>
+            <input type="hidden" id='fagpersonP' name='fagpersonP' value="Hjælpen er på vej!">
+            <input type="hidden" id="currentDate" name="currentDate">
+            <input type="hidden" id="currentTime" name="currentTime">
+
+            <input id='bla' name='bla' type='hidden' value='' readonly/>
+        </form>
+    </main>
+    <div class="displayNoneDiv">
+        <h1 class="wrongFormath1">
+            sidens indhold kan kun vises på mobil!
+        </h1>
+        <p class="wrongFormatP ">
+            du kan se sidens indhold ved at gå til console og vælge mobil.
+        </p>
+      </div>
+</body>
+</html>

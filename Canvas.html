@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Grid
+    </title>
+    <script src="canvas.js"></script>
+    <link rel="stylesheet" href="canvas.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Open+Sans&display=swap" rel="stylesheet"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Ramabhadra&display=swap" rel="stylesheet">
+
+</head>
+    <body onload='draw()'>
+        <div class="topnav">
+            <a href="index.html" class="active" style="font-size: 13px">Tønder <br> Festival</a>
+              <!-- Navigation links (hidden by default) -->
+              <div id="myLinks">
+                <a href="report.html">Indrapportering</a>
+                <a href="tf.html">Sager</a>
+                <a href="Canvas.html">Kort</a>
+                <a href="index.html">Forside</a>
+              </div>
+              <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+              <a href="javascript:void(0);" class="icon" onclick="toggleNav()">
+                <i class="fa fa-bars"></i>
+              </a>
+            </div>
+        <div id=container>
+        <canvas id='canvas' width='958' height='610' onclick="showCoords(event)"></canvas>
+        </div>
+
+        <img id="festivalsplads"
+        src="festivalsplads.png" alt="Ups, noget gik galt">
+
+        <p id='showCoords'></p>
+    </body>
+</html>

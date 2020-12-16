@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset='utf-8'/>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+        <title class='title'></title>
+        <link rel="stylesheet" href="tf2.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Open+Sans&display=swap" rel="stylesheet"> 
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Ramabhadra&display=swap" rel="stylesheet">
+        <script src='./js/newQ.js'></script>
+        <script>
+
+const readIncidents = function () {
+                // Laver en ny ajax request, parser incidents(så js kan læse det), looper igennem alle incidents og putter i myData(div).
+                let oReq = new XMLHttpRequest();
+                oReq.addEventListener("load", function () {
+                    incidents = [];
+                    if (this.responseText.length > 0)
+                        incidents = JSON.parse(this.responseText); // get and objectify
+                        for (var i = 0; i < incidents.length; i++) {
+                            var mainContainer = document.getElementById("myData");
+                            var div = document.createElement("div");
+                            div.innerHTML = '<div id="shown">' +
+                                            '<b>Tid indsendt: </b>' + '<p id="dateP">' + incidents[i].currentDate + ', ' + incidents[i].currentTime + '</p>' +
+                                            '<button id="showMore" onclick="showMoreOC()" style=" cursor: pointer; outline: none; border: none; background-color: #38c538; width: 125px; height: 40px; border-radius: 10px; font-size: 1rem; font-weight: 600; color: white; border: 2px solid darkslateblue;" ">Vis Mere</button>' +
+                                            '</div>' +
+                                            '<div id="divKeep">' +
+                                            '<b>Navn: </b>' + '<p id="nameP">' + incidents[i].name + '</p>' +
+                                            '<b>Funktion: </b>' + '<p id="funktionP">' + incidents[i].funktion + '</p>'+
+                                            '<b>Mobil: </b>' + '<p id="mobilP">' + incidents[i].mobil + '</p>'+
+                                            '<b>Besked: </b>' + '<p id="beskedP">' + incidents[i].besked + '</p>'+
+                                            '<b>Fagperson: </b>' + '<p id="needP">' + incidents[i].need + '</p>' +
+                                            '<div id="btnContainer">' + '<button id="slet"'+ i + ' onclick="clickFunc('+i+')">' + 
+                                            'Marker som løst</button>' + '<button id="sendPerson" onclick="forBtn()">' + 
+                                            'Send fagperson</button>' + '</div>'
+
+
+                            mainContainer.appendChild(div);
+                        }  
+
+
+                });
+                oReq.open("GET", "./getIncidents.php");
+                oReq.send();
+            };
+            // splicer incidents og opdaterer json-filen
+            function clickFunc(i) {
+                console.log(incidents);
+                incidents.splice(i, 1); 
+
+                $('json').value = JSON.stringify(incidents);   // stringify
+                    document.forms['form22'].submit();          // send
+                };
+
+                let io = document.getElementById("divKeep");
+
+
+                // Alerter til pladskontoret om, at systemet har registreret at de har sendt en fagperson afsted,
+                // samt får værdierne fra den skjulte form og sender til newincidents.json
+            function sendPerson() {
+                alert("Vi har sendt information til brugeren om, at en fagperson er på vej");
+                document.getElementById("sendPerson").style.backgroundColor = "#f5d742";
+
+                let oReq = new XMLHttpRequest();
+                oReq.addEventListener("load", function () {
+                    let sent = [];
+                   if (this.responseText.length > 0)
+                        sent = JSON.parse(this.responseText); // get and objectify
+                    // udvid array m indtastet
+                    let n = $('fagpersonP').value;
+                    let d = $('currentDate').value;
+                    let t = $('currentTime').value;
+                    let c = {
+                        fagpersonP: n,
+                        currentDate: d,
+                        currentTime: t,
+                    }; 
+
+                    sent.push(c);                             // add new
+                    $('bla').value = JSON.stringify(sent);   // stringify
+                    document.forms['form21'].submit();          // send
+
+                });
+                oReq.open("GET", "http://localhost/getIncidents2.php");
+                oReq.send();
+            };
+            // udregner tiden når knappen trykkes - altså den tid, hvor der bliver sendt en person ud til brugeren
+            function getTime() {
+                const date = new Date();
+                const getTwoDigits = (value) => value < 10 ? `0${value}` : value;
+
+                const formatDate = (date) => {
+                const day = getTwoDigits(date.getDate());
+                const month = getTwoDigits(date.getMonth() + 1); // adder 1 da getMonths kun returnerer 11 måneder
+                const year = date.getFullYear();
+
+                return `${day}-${month}-${year}`;
+                    }
+
+                const formatTime = (date) => {
+                const hours = getTwoDigits(date.getHours());
+                const mins = getTwoDigits(date.getMinutes());
+
+                return `${hours}:${mins}`;
+                    }
+                document.getElementById('currentTime').value = formatTime(date);
+                document.getElementById('currentDate').value = formatDate(date);
+            }
+
+            // toggler burgermenu
+                function toggleNav() {
+                    var x = document.getElementById("myLinks");
+                    if (x.style.display === "block") {
+                    x.style.display = "none";
+                    } else {
+                    x.style.display = "block";
+                        }
+                }
+
+
+                // kalder getTime() og sendPerson() som er onClick funktioner til knappen
+                function forBtn () {
+                    getTime();
+                    sendPerson();
+                }
+
+
+
+
+
+                        // her skal du skrive incidents tilbage til serveren
+                        // https://stackoverflow.com/questions/32546100/how-to-write-data-to-a-json-file-using-javascript
+            
+
+                        
+            const doThis = function () {
+                readIncidents();
+            };
+
+            function showMoreOC () {
+                document.getElementById("divKeep").style.display = "block";
+            }
+
+            let incidents;
+            window.addEventListener('load', doThis);
+
+        </script>
+    </head>
+    <body>
+        <main>
+            <div class="topnav">
+                <a href="index.html" class="active" style="font-size: 13px">Tønder <br> Festival</a>
+                <div id="myLinks">
+                  <a href="report.html">Indrapportering</a>
+                  <a href="tf.html">Sager</a>
+                  <a href="Canvas.html">Kort</a>
+                  <a href="index.html">Forside</a>
+                </div>
+                <a href="javascript:void(0);" class="icon" onclick="toggleNav()">
+                  <i class="fa fa-bars"></i>
+                </a>
+              </div>
+            <section id='incidents'></section>
+            <div id="myData">
+            </div>
+            <form action='receiveAndStore.php' method='post' name='form22'>
+                <input type='hidden' id='json' name='json'/>
+            </form>
+            <form action="receiveAndStore2.php" method='post' name='form21'>
+                <input type="hidden" id='fagpersonP' name='fagpersonP' value="Hjælpen er på vej!">
+                <input type="hidden" id="currentDate" name="currentDate">
+                <input type="hidden" id="currentTime" name="currentTime">
+
+                <input id='bla' name='bla' type='hidden' value='' readonly/>
+            </form>
+        </main>
+        <div class="displayNoneDiv">
+            <h1 class="wrongFormath1">
+                sidens indhold kan kun vises på mobil!
+            </h1>
+            <p class="wrongFormatP ">
+                du kan se sidens indhold ved at gå til console og vælge mobil.
+            </p>
+          </div>
+        <footer></footer>                           <!-- autofilled -->
+    </body>
+</html>
